@@ -4,7 +4,7 @@ HttpClient base class for HMAC authentication in ASP.NET Core 2.1
 
 ### Status
 
-[![Build status](https://jamesstill.visualstudio.com/SquareWidget.HMAC.Server.Core/_apis/build/status/SquareWidget.HMAC.Server.Core)](https://jamesstill.visualstudio.com/SquareWidget.HMAC.Server.Core/_build/latest?definitionId=13)
+[![Build status](https://jamesstill.visualstudio.com/SquareWidget.HMAC.Client.Core/_apis/build/status/SquareWidget.HMAC.Client.Core-ASP.NET%20Core-CI)](https://jamesstill.visualstudio.com/SquareWidget.HMAC.Client.Core/_build/latest?definitionId=14)
 
 ### Prerequisites
 
