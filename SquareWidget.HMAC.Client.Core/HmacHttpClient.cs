@@ -27,21 +27,6 @@ namespace SquareWidget.HMAC.Client.Core
             ClientCredentials = credentials;
             HashHeaderName = hashRequestHeaderName;
             TimestampHeaderName = timestampRequestHeaderName;
-            
-
-
-            //var hashHeaderName = hashRequestHeaderName;
-            //var timestampHeaderName = timestampRequestHeaderName;
-            //SetBaseAddress(baseAddress);
-
-            //var timestamp = DateTime.UtcNow;
-            //var timestampValue = timestamp.ToString("o", CultureInfo.InvariantCulture);
-            //var hash = ComputeHash(credentials.ClientSecret, timestamp);
-            //var hashPayload = credentials.ClientId + ":" + hash;
-            //DefaultRequestHeaders.Clear();
-            //DefaultRequestHeaders.Add(timestampHeaderName, timestampValue);
-            //DefaultRequestHeaders.Add(hashHeaderName, hashPayload);
-            //DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
         }
 
         public string BaseUrl
