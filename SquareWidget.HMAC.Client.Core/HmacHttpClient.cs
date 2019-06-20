@@ -11,24 +11,89 @@ namespace SquareWidget.HMAC.Client.Core
 {
     public class HmacHttpClient : HttpClient
     {
+        private string _hashHeaderName = "Hash";
+        private string _timestampHeaderName = "Timestamp";
+        private ClientCredentials _clientCredentials;
+
+        public HmacHttpClient() { }
+
         public HmacHttpClient(
-            string baseAddress, 
-            ClientCredentials credentials, 
-            string hashRequestHeaderName = "Hash", 
+            string baseAddress,
+            ClientCredentials credentials,
+            string hashRequestHeaderName = "Hash",
             string timestampRequestHeaderName = "Timestamp")
         {
-            var hashHeaderName = hashRequestHeaderName;
-            var timestampHeaderName = timestampRequestHeaderName;
-            SetBaseAddress(baseAddress);
+            BaseUrl = baseAddress;
+            ClientCredentials = credentials;
+            HashHeaderName = hashRequestHeaderName;
+            TimestampHeaderName = timestampRequestHeaderName;
+            
 
-            var timestamp = DateTime.UtcNow;
-            var timestampValue = timestamp.ToString("o", CultureInfo.InvariantCulture);
-            var hash = ComputeHash(credentials.ClientSecret, timestamp);
-            var hashPayload = credentials.ClientId + ":" + hash;
-            DefaultRequestHeaders.Clear();
-            DefaultRequestHeaders.Add(timestampHeaderName, timestampValue);
-            DefaultRequestHeaders.Add(hashHeaderName, hashPayload);
-            DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+            //var hashHeaderName = hashRequestHeaderName;
+            //var timestampHeaderName = timestampRequestHeaderName;
+            //SetBaseAddress(baseAddress);
+
+            //var timestamp = DateTime.UtcNow;
+            //var timestampValue = timestamp.ToString("o", CultureInfo.InvariantCulture);
+            //var hash = ComputeHash(credentials.ClientSecret, timestamp);
+            //var hashPayload = credentials.ClientId + ":" + hash;
+            //DefaultRequestHeaders.Clear();
+            //DefaultRequestHeaders.Add(timestampHeaderName, timestampValue);
+            //DefaultRequestHeaders.Add(hashHeaderName, hashPayload);
+            //DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+        }
+
+        public string BaseUrl
+        {
+            set
+            {
+                SetBaseAddress(value);
+            }
+        }
+
+        public ClientCredentials ClientCredentials
+        {
+            set
+            {
+                if (string.IsNullOrEmpty(value.ClientId))
+                {
+                    throw new ArgumentNullException(nameof(value.ClientId));
+                }
+
+                if (string.IsNullOrEmpty(value.ClientSecret))
+                {
+                    throw new ArgumentNullException(nameof(value.ClientSecret));
+                }
+
+                _clientCredentials = value;
+            }
+        }
+
+        public string HashHeaderName
+        {
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+
+                _hashHeaderName = value.Trim();
+            }
+        }
+
+        public string TimestampHeaderName
+        {
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+
+                _timestampHeaderName = value.Trim();
+            }
         }
 
         /// <summary>
@@ -40,6 +105,7 @@ namespace SquareWidget.HMAC.Client.Core
         /// <returns></returns>
         public async Task<T> Get<T>(string requestUri) where T : new()
         {
+            InitializeRequest();
             var response = await GetAsync(requestUri);
             return await response.Content.ReadAsAsync<T>();
         }
@@ -53,6 +119,7 @@ namespace SquareWidget.HMAC.Client.Core
         /// <returns></returns>
         public async Task<T> Post<T>(string requestUri, T item)
         {
+            InitializeRequest();
             var response = await this.PostAsJsonAsync(requestUri, item);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<T>();
@@ -67,6 +134,7 @@ namespace SquareWidget.HMAC.Client.Core
         /// <returns></returns>
         public async Task<T> Put<T>(string requestUri, T item)
         {
+            InitializeRequest();
             var response = await this.PutAsJsonAsync(requestUri, item);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsAsync<T>();
@@ -79,8 +147,48 @@ namespace SquareWidget.HMAC.Client.Core
         /// <returns></returns>
         public async Task<HttpStatusCode> Delete(string requestUri)
         {
+            InitializeRequest();
             var response = await DeleteAsync(requestUri);
             return response.StatusCode;
+        }
+
+        /// <summary>
+        /// Initialize the request headers with the timestamp and hash values.
+        /// </summary>
+        public void InitializeRequest()
+        {
+            if (string.IsNullOrEmpty(_clientCredentials.ClientId))
+            {
+                throw new ArgumentNullException(nameof(_clientCredentials.ClientId));
+            }
+
+            if (string.IsNullOrEmpty(_clientCredentials.ClientSecret))
+            {
+                throw new ArgumentNullException(nameof(_clientCredentials.ClientSecret));
+            }
+
+            var timestamp = DateTime.UtcNow;
+            var timestampValue = timestamp.ToString("o", CultureInfo.InvariantCulture);
+            var hash = ComputeHash(_clientCredentials.ClientSecret, timestamp);
+            var hashPayload = _clientCredentials.ClientId + ":" + hash;
+            DefaultRequestHeaders.Clear();
+            DefaultRequestHeaders.Add(_timestampHeaderName, timestampValue);
+            DefaultRequestHeaders.Add(_hashHeaderName, hashPayload);
+            DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+        }
+
+        /// <summary>
+        /// Sets the base URI for the HttpClient. NOTE: trailing backslash is stripped off.
+        /// </summary>
+        /// <param name="baseAddress">http://localhost:12345</param>
+        private void SetBaseAddress(string baseAddress)
+        {
+            if (string.IsNullOrEmpty(baseAddress))
+            {
+                throw new ArgumentNullException(nameof(baseAddress));
+            }
+
+            BaseAddress = new Uri(baseAddress.TrimEnd('/'));
         }
 
         /// <summary>
@@ -98,20 +206,6 @@ namespace SquareWidget.HMAC.Client.Core
                 var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(ticks));
                 return Convert.ToBase64String(hash);
             }
-        }
-
-        /// <summary>
-        /// Sets the base URI for the HttpClient. NOTE: trailing backslash is stripped off.
-        /// </summary>
-        /// <param name="baseAddress">http://localhost:12345</param>
-        private void SetBaseAddress(string baseAddress)
-        {
-            if (string.IsNullOrEmpty(baseAddress))
-            {
-                throw new ArgumentNullException(nameof(baseAddress));
-            }
-
-            BaseAddress = new Uri(baseAddress.TrimEnd('/'));
         }
     }
 }

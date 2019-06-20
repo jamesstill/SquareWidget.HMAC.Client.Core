@@ -1,19 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
-    <Version>2.1.0</Version>
+    <AssemblyVersion>2.1.1.0</AssemblyVersion>
+    <FileVersion>2.1.1.0</FileVersion>
+    <Version>2.1.1</Version>
     <Authors>James Still</Authors>
     <Company>SquareWidget</Company>
-    <Description>HttpClient base class for HMAC authentication in ASP.NET Core 2.1</Description>
+    <Description>HttpClient base class for HMAC authentication in ASP.NET Core Standard 2.0</Description>
     <PackageProjectUrl>https://squarewidget.com/squarewidget-hmac-middleware</PackageProjectUrl>
     <PackageIconUrl>https://squarewidget.com/wp-content/uploads/2018/10/sw_logo_transparent.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/jamesstill/SquareWidget.HMAC.Client.Core</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>HMAC AuthorizeAttribute Middleware</PackageTags>
+    <PackageReleaseNotes>Targeting .NET Standard 2.0. Added parameterless constructor for use with HttpClientFactory DI and public setters for BaseUrl and ClientCredentials.</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
