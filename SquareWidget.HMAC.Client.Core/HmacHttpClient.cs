@@ -83,7 +83,7 @@ namespace SquareWidget.HMAC.Client.Core
 
         /// <summary>
         /// Send an HTTP GET to the service for one or more strongly-typed objects.
-        /// Usage: Get<Person>("api/v1/persons/1") or Get<List<Person>>("api/v1/persons")
+        /// Usage: Get<Widget>("api/widget/1") or Get<List<Widget>>("api/widgets")
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="requestUri">Path to resource</param>
@@ -96,7 +96,7 @@ namespace SquareWidget.HMAC.Client.Core
         }
 
         /// <summary>
-        /// Post a resource. Usage: Post<Person>("/api/v1/persons", person);
+        /// Post a resource. Usage: Post<Widget>("/api/widgets", widget);
         /// </summary>
         /// <typeparam name="T">JSON serializable object</typeparam>
         /// <param name="requestUri">Path to resource</param>
@@ -111,7 +111,7 @@ namespace SquareWidget.HMAC.Client.Core
         }
 
         /// <summary>
-        /// Put resource. Usage: Put<Person>("/api/v1/persons", person);
+        /// Put resource. Usage: Put<Widget>("/api/widgets", widget);
         /// </summary>
         /// <typeparam name="T">JSON serializable object</typeparam>
         /// <param name="requestUri">Path to resource</param>
@@ -126,7 +126,7 @@ namespace SquareWidget.HMAC.Client.Core
         }
 
         /// <summary>
-        /// Delete a resource. Usage: Delete("/api/v1/persons/1");
+        /// Delete a resource. Usage: Delete("/api/widgets/1");
         /// </summary>
         /// <param name="requestUri">Path to resource</param>
         /// <returns></returns>
@@ -153,7 +153,7 @@ namespace SquareWidget.HMAC.Client.Core
             }
 
             var timestamp = DateTime.UtcNow;
-            var timestampValue = timestamp.ToString("o", CultureInfo.InvariantCulture);
+            var timestampValue = timestamp.ToString("s", CultureInfo.InvariantCulture);
             var hash = ComputeHash(_clientCredentials.ClientSecret, timestamp);
             var hashPayload = _clientCredentials.ClientId + ":" + hash;
             DefaultRequestHeaders.Clear();
@@ -163,9 +163,9 @@ namespace SquareWidget.HMAC.Client.Core
         }
 
         /// <summary>
-        /// Sets the base URI for the HttpClient. NOTE: trailing backslash is stripped off.
+        /// Sets the base URI for the HttpClient. NOTE: any trailing backslash is stripped off.
         /// </summary>
-        /// <param name="baseAddress">http://localhost:12345</param>
+        /// <param name="baseAddress">https://localhost:12345</param>
         private void SetBaseAddress(string baseAddress)
         {
             if (string.IsNullOrEmpty(baseAddress))

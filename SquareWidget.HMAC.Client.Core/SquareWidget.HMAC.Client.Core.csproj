@@ -1,25 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>2.1.1.0</AssemblyVersion>
-    <FileVersion>2.1.1.0</FileVersion>
-    <Version>2.1.1</Version>
+    <AssemblyVersion>3.0.0</AssemblyVersion>
+    <FileVersion>3.0.0</FileVersion>
+    <Version>3.0.0</Version>
     <Authors>James Still</Authors>
-    <Company>SquareWidget</Company>
-    <Description>HttpClient base class for HMAC authentication in ASP.NET Core Standard 2.0</Description>
-    <PackageProjectUrl>https://squarewidget.com/squarewidget-hmac-middleware</PackageProjectUrl>
-    <PackageIconUrl>https://squarewidget.com/wp-content/uploads/2018/10/sw_logo_transparent.png</PackageIconUrl>
+    <Company>squarewidget.com</Company>
+    <Description>HttpClient base class for HMAC authentication in .NET 5.0</Description>
+    <PackageProjectUrl>https://github.com/jamesstill/SquareWidget.HMAC.Client.Core</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jamesstill/SquareWidget.HMAC.Client.Core</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>HMAC AuthorizeAttribute Middleware</PackageTags>
-    <PackageReleaseNotes>Targeting .NET Standard 2.0. Added parameterless constructor for use with HttpClientFactory DI and public setters for BaseUrl and ClientCredentials.</PackageReleaseNotes>
+    <PackageTags>HMAC Security Middleware</PackageTags>
+    <PackageReleaseNotes>Now targets .NET 5.0. Also timestamp now uses ISO 8601 sortable format specifier "s" instead of round-trip "o" in order to faciliate API testing with javascript.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>sw_logo_transparent.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\SquareWidget.HMAC.Server.Core\SquareWidget.HMAC.Server.Core\sw_logo_transparent.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

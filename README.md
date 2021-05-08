@@ -1,18 +1,15 @@
 # SquareWidget.HMAC.Client.Core
 
-HttpClient base class for HMAC authentication in ASP.NET Core 2.1
-
-### Status
-
-[![Build status](https://jamesstill.visualstudio.com/SquareWidget.HMAC.Client.Core/_apis/build/status/SquareWidget.HMAC.Client.Core-ASP.NET%20Core-CI)](https://jamesstill.visualstudio.com/SquareWidget.HMAC.Client.Core/_build/latest?definitionId=14)
+HttpClient base class for HMAC authentication in .NET 5.0
 
 ### Prerequisites
 
-ASP.NET Core 2.1
+.NET 5.0
 
 ### Getting Started
 
-See the [documentation](https://squarewidget.com/squarewidget-hmac-middleware) for usage. Download the NuGet package in your ASP.NET Core 2.1 client. 
+See the [documentation](https://squarewidget.com/squarewidget-hmac-middleware) for usage. 
+Download the NuGet package in your .NET client solution. 
 
 ```
 var baseUri = "https://localhost:44320";
@@ -37,7 +34,7 @@ Use SquareWidget.HMAC.Server.Core package. See the [documentation](https://squar
 
 ## Versioning
 
-Version 2.1.0 targeting ASP.NET Core 2.1 
+Version 3.0.0 targets .NET 5.0 
 
 ## Authors
 
@@ -45,4 +42,4 @@ Version 2.1.0 targeting ASP.NET Core 2.1
 
 ## License
 
-None
+This project is licensed under the MIT License.
