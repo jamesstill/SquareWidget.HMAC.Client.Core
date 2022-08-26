@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>3.0.0</AssemblyVersion>
-    <FileVersion>3.0.0</FileVersion>
-    <Version>3.0.0</Version>
+    <AssemblyVersion>6.0.0</AssemblyVersion>
+    <FileVersion>6.0.0</FileVersion>
+    <Version>6.0.0</Version>
     <Authors>James Still</Authors>
     <Company>squarewidget.com</Company>
-    <Description>HttpClient base class for HMAC authentication in .NET 5.0</Description>
+    <Description>HttpClient base class for HMAC authentication in .NET 6.0</Description>
     <PackageProjectUrl>https://github.com/jamesstill/SquareWidget.HMAC.Client.Core</PackageProjectUrl>
     <RepositoryUrl>https://github.com/jamesstill/SquareWidget.HMAC.Client.Core</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>HMAC Security Middleware</PackageTags>
-    <PackageReleaseNotes>Now targets .NET 5.0. Also timestamp now uses ISO 8601 sortable format specifier "s" instead of round-trip "o" in order to faciliate API testing with javascript.</PackageReleaseNotes>
+    <PackageReleaseNotes>Now targets .NET 6.0. Also timestamp now uses unix timestamp instead of round-trip "o" in order to faciliate API testing with javascript.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>sw_logo_transparent.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
   </ItemGroup>
 
   <ItemGroup>

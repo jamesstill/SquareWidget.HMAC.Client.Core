@@ -152,8 +152,8 @@ namespace SquareWidget.HMAC.Client.Core
                 throw new ArgumentNullException(nameof(_clientCredentials.ClientSecret));
             }
 
-            var timestamp = DateTime.UtcNow;
-            var timestampValue = timestamp.ToString("s", CultureInfo.InvariantCulture);
+            var timestamp = DateTimeOffset.UtcNow;
+            var timestampValue = timestamp.ToUnixTimeSeconds().ToString();
             var hash = ComputeHash(_clientCredentials.ClientSecret, timestamp);
             var hashPayload = _clientCredentials.ClientId + ":" + hash;
             DefaultRequestHeaders.Clear();
@@ -182,15 +182,13 @@ namespace SquareWidget.HMAC.Client.Core
         /// <param name="clientSecret"></param>
         /// <param name="timestamp"></param>
         /// <returns></returns>
-        private static string ComputeHash(string clientSecret, DateTime timestamp)
+        private static string ComputeHash(string clientSecret, DateTimeOffset timestamp)
         {
             var keyBytes = Encoding.UTF8.GetBytes(clientSecret);
-            var ticks = timestamp.Ticks.ToString(CultureInfo.InvariantCulture);
-            using (var hmac = new HMACSHA256(keyBytes))
-            {
-                var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(ticks));
-                return Convert.ToBase64String(hash);
-            }
+            var ticks = timestamp.ToUnixTimeSeconds().ToString();
+            using var hmac = new HMACSHA256(keyBytes);
+            var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(ticks));
+            return Convert.ToBase64String(hash);
         }
     }
 }

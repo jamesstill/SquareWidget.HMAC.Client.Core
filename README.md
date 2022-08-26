@@ -1,10 +1,10 @@
 # SquareWidget.HMAC.Client.Core
 
-HttpClient base class for HMAC authentication in .NET 5.0
+HttpClient base class for HMAC authentication in .NET Core 6.0
 
 ### Prerequisites
 
-.NET 5.0
+.NET Core 6.0
 
 ### Getting Started
 
@@ -34,7 +34,7 @@ Use SquareWidget.HMAC.Server.Core package. See the [documentation](https://squar
 
 ## Versioning
 
-Version 3.0.0 targets .NET 5.0 
+Version 6.0.0 targets .NET 6.0 
 
 ## Authors
 
