@@ -16,6 +16,7 @@
     <PackageReleaseNotes>Now targets .NET 8.0. Removed deprecated packages.</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>sw_logo_transparent.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,9 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\SquareWidget.HMAC.Server.Core\SquareWidget.HMAC.Server.Core\sw_logo_transparent.png">
+    <None Include="..\..\SquareWidget.HMAC.Client.Core\SquareWidget.HMAC.Client.Core\sw_logo_transparent.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\SquareWidget.HMAC.Client.Core\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
